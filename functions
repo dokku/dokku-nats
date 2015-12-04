@@ -339,7 +339,9 @@ service_url() {
   SERVICE="$1"
   local SERVICE_ALIAS
   SERVICE_ALIAS="$(service_alias "$SERVICE")"
-  echo "$PLUGIN_SCHEME://$SERVICE_ALIAS:${PLUGIN_DATASTORE_PORTS[0]}/0"
+  local PASSWORD
+  PASSWORD="$(cat $SERVICE_ROOT/PASSWORD)"
+  echo "$PLUGIN_SCHEME://$SERVICE_NAME:$SERVICE_ALIAS:${PLUGIN_DATASTORE_PORTS[0]}/0"
 }
 
 is_container_status () {

@@ -26,9 +26,10 @@ case "$1" in
     fi
 
     mkdir -p "$SERVICE_ROOT" || dokku_log_fail "Unable to create service directory"
-    mkdir -p "$SERVICE_ROOT/data" || dokku_log_fail "Unable to create service data directory"
-    mkdir -p "$SERVICE_ROOT/config" || dokku_log_fail "Unable to create service config directory"
     touch "$LINKS_FILE"
+
+    password=$(openssl rand -hex 16)
+    echo $password > "$SERVICE_ROOT/PASSWORD"
 
     dokku_log_info1 "Starting container"
     if [[ -n $NATS_CUSTOM_ENV ]]; then
@@ -37,7 +38,7 @@ case "$1" in
       echo "" > "$SERVICE_ROOT/ENV"
     fi
     SERVICE_NAME=$(get_service_name "$SERVICE")
-    ID=$(docker run --name "$SERVICE_NAME" -v "$SERVICE_ROOT/data:/data" -v "$SERVICE_ROOT/config:/usr/local/etc/nats" --env-file="$SERVICE_ROOT/ENV" -d --restart always --label dokku=service --label dokku.service=nats "$PLUGIN_IMAGE:$PLUGIN_IMAGE_VERSION")
+    ID=$(docker run --name "$SERVICE_NAME" -env-file="$SERVICE_ROOT/ENV" -d --restart always --label dokku=service --label dokku.service=nats "$PLUGIN_IMAGE:$PLUGIN_IMAGE_VERSION" --user $SERVICE_NAME --pass $password)
     echo "$ID" > "$SERVICE_ROOT/ID"
 
     dokku_log_verbose_quiet "Waiting for container to be ready"
@@ -81,7 +82,6 @@ case "$1" in
     fi
 
     dokku_log_verbose_quiet "Removing data"
-    docker run --rm -v "$SERVICE_ROOT/data:/data" "$PLUGIN_IMAGE:$PLUGIN_IMAGE_VERSION" chmod 777 -R /data
     rm -rf "$SERVICE_ROOT"
 
     dokku_log_info2 "$PLUGIN_SERVICE container deleted: $SERVICE"
