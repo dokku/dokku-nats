@@ -1,4 +1,4 @@
-Unofficial Nats plugin for dokku. Currently defaults to installing [nats 0.6.8](https://hub.docker.com/_/nats/).
+Official Nats plugin for dokku. Currently defaults to installing [nats 0.6.8](https://hub.docker.com/_/nats/).
 
 ## requirements
 
