@@ -46,6 +46,6 @@ teardown() {
 @test "($PLUGIN_COMMAND_PREFIX:unlink) unsets config url from app" {
   dokku "$PLUGIN_COMMAND_PREFIX:link" l my_app >&2
   dokku "$PLUGIN_COMMAND_PREFIX:unlink" l my_app
-  config=$(dokku config:get my_app REDIS_URL)
+  config=$(dokku config:get my_app NATS_URL)
   assert_equal "$config" ""
 }

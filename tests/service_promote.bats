@@ -35,19 +35,19 @@ teardown() {
 
 @test "($PLUGIN_COMMAND_PREFIX:promote) error when the service is already promoted" {
   run dokku "$PLUGIN_COMMAND_PREFIX:promote" l my_app
-  assert_contains "${lines[*]}" "already promoted as REDIS_URL"
+  assert_contains "${lines[*]}" "already promoted as NATS_URL"
 }
 
-@test "($PLUGIN_COMMAND_PREFIX:promote) changes REDIS_URL" {
-  dokku config:set my_app "REDIS_URL=nats://host:4222/db" "DOKKU_REDIS_BLUE_URL=nats://dokku-nats-l:4222/0"
+@test "($PLUGIN_COMMAND_PREFIX:promote) changes NATS_URL" {
+  dokku config:set my_app "NATS_URL=nats://host:4222/db" "DOKKU_NATS_BLUE_URL=nats://dokku-nats-l:4222/0"
   dokku "$PLUGIN_COMMAND_PREFIX:promote" l my_app
-  url=$(dokku config:get my_app REDIS_URL)
+  url=$(dokku config:get my_app NATS_URL)
   assert_equal "$url" "nats://dokku-nats-l:4222/0"
 }
 
 @test "($PLUGIN_COMMAND_PREFIX:promote) creates new config url when needed" {
-  dokku config:set my_app "REDIS_URL=nats://host:4222/db" "DOKKU_REDIS_BLUE_URL=nats://dokku-nats-l:4222/0"
+  dokku config:set my_app "NATS_URL=nats://host:4222/db" "DOKKU_NATS_BLUE_URL=nats://dokku-nats-l:4222/0"
   dokku "$PLUGIN_COMMAND_PREFIX:promote" l my_app
   run dokku config my_app
-  assert_contains "${lines[*]}" "DOKKU_REDIS_"
+  assert_contains "${lines[*]}" "DOKKU_NATS_"
 }
