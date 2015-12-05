@@ -39,14 +39,14 @@ teardown() {
 }
 
 @test "($PLUGIN_COMMAND_PREFIX:promote) changes NATS_URL" {
-  dokku config:set my_app "NATS_URL=nats://host:4222/db" "DOKKU_NATS_BLUE_URL=nats://dokku-nats-l:4222/0"
+  dokku config:set my_app "NATS_URL=nats://host:4222/db" "DOKKU_NATS_BLUE_URL=nats://dokku-nats-l:4222"
   dokku "$PLUGIN_COMMAND_PREFIX:promote" l my_app
   url=$(dokku config:get my_app NATS_URL)
-  assert_equal "$url" "nats://dokku-nats-l:4222/0"
+  assert_equal "$url" "nats://dokku-nats-l:4222"
 }
 
 @test "($PLUGIN_COMMAND_PREFIX:promote) creates new config url when needed" {
-  dokku config:set my_app "NATS_URL=nats://host:4222/db" "DOKKU_NATS_BLUE_URL=nats://dokku-nats-l:4222/0"
+  dokku config:set my_app "NATS_URL=nats://host:4222/db" "DOKKU_NATS_BLUE_URL=nats://dokku-nats-l:4222"
   dokku "$PLUGIN_COMMAND_PREFIX:promote" l my_app
   run dokku config my_app
   assert_contains "${lines[*]}" "DOKKU_NATS_"

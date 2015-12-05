@@ -80,7 +80,7 @@ dokku nats:link lolipop playground
 #
 # and the following will be set on the linked application by default
 #
-#   NATS_URL=nats://dokku-nats-lolipop:4222/0
+#   NATS_URL=nats://dokku-nats-lolipop:4222
 #
 # NOTE: the host exposed here only works internally in docker containers. If
 # you want your container to be reachable from outside, you should use `expose`.
@@ -91,7 +91,7 @@ dokku nats:link other_service playground
 # since NATS_URL is already in use, another environment variable will be
 # generated automatically
 #
-#   DOKKU_NATS_BLUE_URL=nats://dokku-nats-other-service:4222/0
+#   DOKKU_NATS_BLUE_URL=nats://dokku-nats-other-service:4222
 
 # you can then promote the new service to be the primary one
 # NOTE: this will restart your app
@@ -101,8 +101,8 @@ dokku nats:promote other_service playground
 # another environment variable to hold the previous value if necessary.
 # you could end up with the following for example:
 #
-#   NATS_URL=nats://dokku-nats-other-service:4222/0
-#   DOKKU_NATS_BLUE_URL=nats://dokku-nats-other-service:4222/0
+#   NATS_URL=nats://dokku-nats-other-service:4222
+#   DOKKU_NATS_BLUE_URL=nats://dokku-nats-other-service:4222
 #   DOKKU_NATS_SILVER_URL=nats://dokku-nats-lolipop:4222/lolipop
 
 # you can also unlink a nats service
