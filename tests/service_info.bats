@@ -21,12 +21,14 @@ teardown() {
 
 @test "($PLUGIN_COMMAND_PREFIX:info) success" {
   run dokku "$PLUGIN_COMMAND_PREFIX:info" l
-  assert_contains "${lines[*]}" "DSN: nats://dokku-nats-l:4222"
+  local password=$(< $PLUGIN_DATA_ROOT/l/PASSWORD)
+  assert_contains "${lines[*]}" "DSN: nats://l:$password@dokku-nats-l:4222"
 }
 
 @test "($PLUGIN_COMMAND_PREFIX:info) replaces underscores by dash in hostname" {
   dokku "$PLUGIN_COMMAND_PREFIX:create" test_with_underscores
+  local password=$(< $PLUGIN_DATA_ROOT/test_with_underscores/PASSWORD)
   run dokku "$PLUGIN_COMMAND_PREFIX:info" test_with_underscores
-  assert_contains "${lines[*]}" "DSN: nats://dokku-nats-test-with-underscores:4222"
+  assert_contains "${lines[*]}" "DSN: nats://test_with_underscores:$password@dokku-nats-test-with-underscores:4222"
   dokku --force "$PLUGIN_COMMAND_PREFIX:destroy" test_with_underscores
 }
