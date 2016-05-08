@@ -190,7 +190,9 @@ service_port_unpause() {
   local EXPOSED_NAME="${SERVICE_NAME}.ambassador"
   local PORT_FILE="$SERVICE_ROOT/PORT"
   local LOG_FAIL="$2"
+  # shellcheck disable=SC2068
   local PORTS=(${@:3})
+  # shellcheck disable=SC2068
   PORTS=(${PORTS[@]:-$(get_random_ports ${#PLUGIN_DATASTORE_PORTS[@]})})
   local ID=$(cat "$SERVICE_ROOT/ID")
 
