@@ -39,15 +39,25 @@ teardown() {
 }
 
 @test "($PLUGIN_COMMAND_PREFIX:promote) changes NATS_URL" {
-  dokku config:set my_app "NATS_URL=nats://host:4222/db" "DOKKU_NATS_BLUE_URL=nats://dokku-nats-l:4222"
+  password="$(cat "$PLUGIN_DATA_ROOT/l/PASSWORD")"
+  dokku config:set my_app "NATS_URL=nats://u:p@host:4222/db" "DOKKU_NATS_BLUE_URL=nats://l:$password@dokku-nats-l:4222"
   dokku "$PLUGIN_COMMAND_PREFIX:promote" l my_app
   url=$(dokku config:get my_app NATS_URL)
-  assert_equal "$url" "nats://dokku-nats-l:4222"
+  assert_equal "$url" "nats://l:$password@dokku-nats-l:4222"
 }
 
 @test "($PLUGIN_COMMAND_PREFIX:promote) creates new config url when needed" {
-  dokku config:set my_app "NATS_URL=nats://host:4222/db" "DOKKU_NATS_BLUE_URL=nats://dokku-nats-l:4222"
+  password="$(cat "$PLUGIN_DATA_ROOT/l/PASSWORD")"
+  dokku config:set my_app "NATS_URL=nats://u:p@host:4222/db" "DOKKU_NATS_BLUE_URL=nats://l:$password@dokku-nats-l:4222"
   dokku "$PLUGIN_COMMAND_PREFIX:promote" l my_app
   run dokku config my_app
   assert_contains "${lines[*]}" "DOKKU_NATS_"
+}
+
+@test "($PLUGIN_COMMAND_PREFIX:promote) uses NATS_DATABASE_SCHEME variable" {
+  password="$(cat "$PLUGIN_DATA_ROOT/l/PASSWORD")"
+  dokku config:set my_app "NATS_DATABASE_SCHEME=nats2" "NATS_URL=nats://u:p@host:4222/db" "DOKKU_NATS_BLUE_URL=nats2://l:$password@dokku-nats-l:4222"
+  dokku "$PLUGIN_COMMAND_PREFIX:promote" l my_app
+  url=$(dokku config:get my_app NATS_URL)
+  assert_contains "$url" "nats2://l:$password@dokku-nats-l:4222"
 }

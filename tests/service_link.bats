@@ -40,7 +40,8 @@ teardown() {
 @test "($PLUGIN_COMMAND_PREFIX:link) exports NATS_URL to app" {
   dokku "$PLUGIN_COMMAND_PREFIX:link" l my_app
   url=$(dokku config:get my_app NATS_URL)
-  assert_contains "$url" "nats://dokku-nats-l:4222"
+  password="$(cat "$PLUGIN_DATA_ROOT/l/PASSWORD")"
+  assert_contains "$url" "nats://l:$password@dokku-nats-l:4222"
   dokku "$PLUGIN_COMMAND_PREFIX:unlink" l my_app
 }
 
@@ -56,5 +57,14 @@ teardown() {
   dokku "$PLUGIN_COMMAND_PREFIX:link" l my_app
   run dokku docker-options my_app
   assert_contains "${lines[*]}" "--link dokku.nats.l:dokku-nats-l"
+  dokku "$PLUGIN_COMMAND_PREFIX:unlink" l my_app
+}
+
+@test "($PLUGIN_COMMAND_PREFIX:link) uses apps NATS_DATABASE_SCHEME variable" {
+  dokku config:set my_app NATS_DATABASE_SCHEME=nats
+  dokku "$PLUGIN_COMMAND_PREFIX:link" l my_app
+  url=$(dokku config:get my_app NATS_URL)
+  password="$(cat "$PLUGIN_DATA_ROOT/l/PASSWORD")"
+  assert_contains "$url" "nats://l:$password@dokku-nats-l:4222"
   dokku "$PLUGIN_COMMAND_PREFIX:unlink" l my_app
 }
