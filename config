@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 export NATS_IMAGE=${NATS_IMAGE:="nats"}
-export NATS_IMAGE_VERSION=${NATS_IMAGE_VERSION:="0.7.2"}
+export NATS_IMAGE_VERSION=${NATS_IMAGE_VERSION:="0.8.1"}
 export NATS_ROOT=${NATS_ROOT:="/var/lib/dokku/services/nats"}
 
 export PLUGIN_COMMAND_PREFIX="nats"
