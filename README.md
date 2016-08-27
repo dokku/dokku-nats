@@ -111,3 +111,30 @@ dokku nats:logs lolipop -t # to tail
 # finally, you can destroy the container
 dokku nats:destroy lolipop
 ```
+
+## Changing database adapter
+
+It's possible to change the protocol for NATS_URL by setting
+the environment variable NATS_DATABASE_SCHEME on the app:
+
+```
+dokku config:set playground NATS_DATABASE_SCHEME=nats2
+dokku nats:link lolipop playground
+```
+
+Will cause NATS_URL to be set as
+nats2://dokku-nats-lolipop:4222/lolipop
+
+CAUTION: Changing NATS_DATABASE_SCHEME after linking will cause dokku to
+believe the service is not linked when attempting to use `dokku nats:unlink`
+or `dokku nats:promote`.
+You should be able to fix this by
+
+- Changing NATS_URL manually to the new value.
+
+OR
+
+- Set NATS_DATABASE_SCHEME back to its original setting
+- Unlink the service
+- Change NATS_DATABASE_SCHEME to the desired setting
+- Relink the service
