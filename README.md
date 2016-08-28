@@ -60,6 +60,7 @@ dokku nats:info lolipop --config-dir
 dokku nats:info lolipop --data-dir
 dokku nats:info lolipop --dsn
 dokku nats:info lolipop --exposed-ports
+dokku nats:info lolipop --id
 dokku nats:info lolipop --links
 dokku nats:info lolipop --status
 dokku nats:info lolipop --version
