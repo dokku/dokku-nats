@@ -44,17 +44,25 @@ dokku nats:create lolipop
 # official nats image
 export NATS_IMAGE="nats"
 export NATS_IMAGE_VERSION="0.6.5"
+dokku nats:create lolipop
 
 # you can also specify custom environment
 # variables to start the nats service
 # in semi-colon separated forma
 export NATS_CUSTOM_ENV="USER=alpha;HOST=beta"
-
-# create a nats service
 dokku nats:create lolipop
 
 # get connection information as follows
 dokku nats:info lolipop
+
+# you can also retrieve a specific piece of service info via flags
+dokku nats:info lolipop --config-dir
+dokku nats:info lolipop --data-dir
+dokku nats:info lolipop --dsn
+dokku nats:info lolipop --exposed-ports
+dokku nats:info lolipop --links
+dokku nats:info lolipop --status
+dokku nats:info lolipop --version
 
 # a nats service can be linked to a
 # container this will use native docker
