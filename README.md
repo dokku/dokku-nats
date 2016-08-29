@@ -63,6 +63,7 @@ dokku nats:info lolipop --exposed-ports
 dokku nats:info lolipop --id
 dokku nats:info lolipop --internal-ip
 dokku nats:info lolipop --links
+dokku nats:info lolipop --service-root
 dokku nats:info lolipop --status
 dokku nats:info lolipop --version
 
