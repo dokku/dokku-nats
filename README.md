@@ -17,9 +17,14 @@ sudo dokku plugin:install https://github.com/dokku/dokku-nats.git nats
 ## commands
 
 ```
+nats:clone <name> <new-name>  NOT IMPLEMENTED
+nats:connect <name>           NOT IMPLEMENTED
 nats:create <name>            Create a nats service with environment variables
 nats:destroy <name>           Delete the service and stop its container if there are no links left
+nats:enter <name> [command]   Enter a running couchdb service or run a command
+nats:export <name> > <file>   NOT IMPLEMENTED
 nats:expose <name> [port]     Expose a nats service on custom port if provided (random port otherwise)
+nats:import <name> <file>     NOT IMPLEMENTED
 nats:info <name>              Print the connection information
 nats:link <name> <app>        Link the nats service to the app
 nats:list                     List all nats services
@@ -66,6 +71,14 @@ dokku nats:info lolipop --links
 dokku nats:info lolipop --service-root
 dokku nats:info lolipop --status
 dokku nats:info lolipop --version
+
+# a bash prompt can be opened against a running service
+# filesystem changes will not be saved to disk
+dokku nats:enter lolipop
+
+# you may also run a command directly against the service
+# filesystem changes will not be saved to disk
+dokku nats:enter lolipop ls -lah /
 
 # a nats service can be linked to a
 # container this will use native docker
