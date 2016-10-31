@@ -17,6 +17,11 @@ sudo dokku plugin:install https://github.com/dokku/dokku-nats.git nats
 ## commands
 
 ```
+nats:backup <name> <bucket>   NOT IMPLEMENTED
+nats:backup-auth <name> <aws_access_key_id> <aws_secret_access_key> NOT IMPLEMENTED
+nats:backup-deauth <name>     NOT IMPLEMENTED
+nats:backup-schedule <name> <schedule> <bucket> NOT IMPLEMENTED
+nats:backup-unschedule <name> NOT IMPLEMENTED
 nats:clone <name> <new-name>  NOT IMPLEMENTED
 nats:connect <name>           NOT IMPLEMENTED
 nats:create <name>            Create a nats service with environment variables
