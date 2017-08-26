@@ -17,7 +17,7 @@ sudo dokku plugin:install https://github.com/dokku/dokku-nats.git nats
 ## commands
 
 ```
-nats:backup <name> <bucket>   NOT IMPLEMENTED
+nats:backup <name> <bucket> [--use-iam] NOT IMPLEMENTED
 nats:backup-auth <name> <aws_access_key_id> <aws_secret_access_key> (<aws_default_region>) (<aws_signature_version>) (<endpoint_url>) NOT IMPLEMENTED
 nats:backup-deauth <name>     NOT IMPLEMENTED
 nats:backup-schedule <name> <schedule> <bucket> NOT IMPLEMENTED
@@ -58,7 +58,7 @@ dokku nats:create lolipop
 
 # you can also specify custom environment
 # variables to start the nats service
-# in semi-colon separated forma
+# in semi-colon separated form
 export NATS_CUSTOM_ENV="USER=alpha;HOST=beta"
 dokku nats:create lolipop
 
