@@ -25,7 +25,7 @@ nats:backup-unschedule <name> NOT IMPLEMENTED
 nats:clone <name> <new-name>  NOT IMPLEMENTED
 nats:connect <name>           NOT IMPLEMENTED
 nats:create <name>            Create a nats service with environment variables
-nats:destroy <name>           Delete the service and stop its container if there are no links left
+nats:destroy <name>           Delete the service, delete the data and stop its container if there are no links left
 nats:enter <name> [command]   Enter or run a command in a running nats service container
 nats:export <name> > <file>   NOT IMPLEMENTED
 nats:expose <name> [port]     Expose a nats service on custom port if provided (random port otherwise)
