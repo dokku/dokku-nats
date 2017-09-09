@@ -21,7 +21,9 @@ nats:backup <name> <bucket> (--use-iam) NOT IMPLEMENTED
 nats:backup-auth <name> <aws_access_key_id> <aws_secret_access_key> (<aws_default_region>) (<aws_signature_version>) (<endpoint_url>) NOT IMPLEMENTED
 nats:backup-deauth <name>     NOT IMPLEMENTED
 nats:backup-schedule <name> <schedule> <bucket> NOT IMPLEMENTED
+nats:backup-set-encryption <name> <encryption_key>, NOT IMPLEMENTED
 nats:backup-unschedule <name> NOT IMPLEMENTED
+nats:backup-unset-encryption <name>, NOT IMPLEMENTED
 nats:clone <name> <new-name>  NOT IMPLEMENTED
 nats:connect <name>           NOT IMPLEMENTED
 nats:create <name>            Create a nats service with environment variables
