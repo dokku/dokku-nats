@@ -29,11 +29,13 @@ nats:connect <name>           NOT IMPLEMENTED
 nats:create <name>            Create a nats service with environment variables
 nats:destroy <name>           Delete the service, delete the data and stop its container if there are no links left
 nats:enter <name> [command]   Enter or run a command in a running nats service container
+nats:exists <service>         Check if the nats service exists
 nats:export <name> > <file>   NOT IMPLEMENTED
 nats:expose <name> [port]     Expose a nats service on custom port if provided (random port otherwise)
 nats:import <name> <file>     NOT IMPLEMENTED
 nats:info <name>              Print the connection information
 nats:link <name> <app>        Link the nats service to the app
+nats:linked <name> <app>      Check if the nats service is linked to an app
 nats:list                     List all nats services
 nats:logs <name> [-t]         Print the most recent log(s) for this service
 nats:promote <name> <app>     Promote service <name> as NATS_URL in <app>
