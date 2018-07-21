@@ -17,6 +17,7 @@ sudo dokku plugin:install https://github.com/dokku/dokku-nats.git nats
 ## commands
 
 ```
+nats:app-links <app>          List all nats service links for a given app
 nats:backup <name> <bucket> (--use-iam) NOT IMPLEMENTED
 nats:backup-auth <name> <aws_access_key_id> <aws_secret_access_key> (<aws_default_region>) (<aws_signature_version>) (<endpoint_url>) NOT IMPLEMENTED
 nats:backup-deauth <name>     NOT IMPLEMENTED
