@@ -46,6 +46,7 @@ nats:start <name>             Start a previously stopped nats service
 nats:stop <name>              Stop a running nats service
 nats:unexpose <name>          Unexpose a previously exposed nats service
 nats:unlink <name> <app>      Unlink the nats service from the app
+nats:upgrade <name>           Upgrade service <service> to the specified version
 ```
 
 ## usage
