@@ -23,7 +23,7 @@ nats:backup-auth <name> <aws_access_key_id> <aws_secret_access_key> (<aws_defaul
 nats:backup-deauth <name>     NOT IMPLEMENTED
 nats:backup-schedule <name> <schedule> <bucket> NOT IMPLEMENTED
 nats:backup-schedule-cat <name> NOT IMPLEMENTED
-nats:backup-set-encryption <name> <encryption_key> NOT IMPLEMENTED
+nats:backup-set-encryption <name> <passphrase> NOT IMPLEMENTED
 nats:backup-unschedule <name> NOT IMPLEMENTED
 nats:backup-unset-encryption <name> NOT IMPLEMENTED
 nats:clone <name> <new-name>  NOT IMPLEMENTED
