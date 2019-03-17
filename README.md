@@ -4,7 +4,7 @@ Official nats plugin for dokku. Currently defaults to installing [nats 0.9.4](ht
 
 ## requirements
 
-- dokku 0.4.x+
+- dokku 0.12.x+
 - docker 1.8.x
 
 ## installation
