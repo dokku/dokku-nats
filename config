@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 export NATS_IMAGE=${NATS_IMAGE:="nats"}
 export NATS_IMAGE_VERSION=${NATS_IMAGE_VERSION:="0.9.4"}
-export NATS_ROOT=${NATS_ROOT:="/var/lib/dokku/services/nats"}
+export NATS_ROOT=${NATS_ROOT:="$DOKKU_LIB_ROOT/services/nats"}
 export NATS_HOST_ROOT=${NATS_HOST_ROOT:=$NATS_ROOT}
 
 export PLUGIN_UNIMPLEMENTED_SUBCOMMANDS=("backup" "backup-auth" "backup-deauth" "backup-schedule" "backup-schedule-cat" "backup-set-encryption" "backup-unschedule" "backup-unset-encryption" "clone" "connect" "export" "import")
