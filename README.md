@@ -10,7 +10,7 @@ Official nats plugin for dokku. Currently defaults to installing [nats 0.9.4](ht
 ## installation
 
 ```shell
-# on 0.4.x+
+# on 0.12.x+
 sudo dokku plugin:install https://github.com/dokku/dokku-nats.git nats
 ```
 
