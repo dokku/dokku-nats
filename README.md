@@ -1,6 +1,6 @@
 # dokku nats [![Build Status](https://img.shields.io/travis/dokku/dokku-nats.svg?branch=master "Build Status")](https://travis-ci.org/dokku/dokku-nats) [![IRC Network](https://img.shields.io/badge/irc-freenode-blue.svg "IRC Freenode")](https://webchat.freenode.net/?channels=dokku)
 
-Official nats plugin for dokku. Currently defaults to installing [nats 0.9.4](https://hub.docker.com/_/nats/).
+Official nats plugin for dokku. Currently defaults to installing [nats 1.4.1](https://hub.docker.com/_/nats/).
 
 ## requirements
 

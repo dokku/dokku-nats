@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 export NATS_IMAGE=${NATS_IMAGE:="nats"}
-export NATS_IMAGE_VERSION=${NATS_IMAGE_VERSION:="0.9.4"}
+export NATS_IMAGE_VERSION=${NATS_IMAGE_VERSION:="1.4.1"}
 export NATS_ROOT=${NATS_ROOT:="$DOKKU_LIB_ROOT/services/nats"}
 export NATS_HOST_ROOT=${NATS_HOST_ROOT:=$NATS_ROOT}
 
