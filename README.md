@@ -1,4 +1,4 @@
-# dokku nats [![Build Status](https://img.shields.io/travis/dokku/dokku-nats.svg?branch=master "Build Status")](https://travis-ci.org/dokku/dokku-nats) [![IRC Network](https://img.shields.io/badge/irc-freenode-blue.svg "IRC Freenode")](https://webchat.freenode.net/?channels=dokku)
+# dokku nats [![Build Status](https://img.shields.io/circleci/project/github/dokku/dokku-nats.svg?branch=master&style=flat-square "Build Status")](https://circleci.com/gh/dokku/dokku-nats/tree/master) [![IRC Network](https://img.shields.io/badge/irc-freenode-blue.svg?style=flat-square "IRC Freenode")](https://webchat.freenode.net/?channels=dokku)
 
 Official nats plugin for dokku. Currently defaults to installing [nats 1.4.1](https://hub.docker.com/_/nats/).
 
