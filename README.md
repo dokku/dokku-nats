@@ -65,15 +65,15 @@ Create a nats service named lolipop:
 dokku nats:create lolipop
 ```
 
-You can also specify the image and image version to use for the service. It *must* be compatible with the ${plugin_image} image.
+You can also specify the image and image version to use for the service. It *must* be compatible with the nats image. 
 
 ```shell
-export NATS_IMAGE="${PLUGIN_IMAGE}"
+export NATS_IMAGE="nats"
 export NATS_IMAGE_VERSION="${PLUGIN_IMAGE_VERSION}"
 dokku nats:create lolipop
 ```
 
-You can also specify custom environment variables to start the nats service in semi-colon separated form.
+You can also specify custom environment variables to start the nats service in semi-colon separated form. 
 
 ```shell
 export NATS_CUSTOM_ENV="USER=alpha;HOST=beta"
@@ -169,7 +169,7 @@ flags:
 - `-a|--alias "BLUE_DATABASE"`: an alternative alias to use for linking to an app via environment variable
 - `-q|--querystring "pool=5"`: ampersand delimited querystring arguments to append to the service link
 
-A nats service can be linked to a container. This will use native docker links via the docker-options plugin. Here we link it to our 'playground' app.
+A nats service can be linked to a container. This will use native docker links via the docker-options plugin. Here we link it to our 'playground' app. 
 
 > NOTE: this will restart your app
 
@@ -200,14 +200,14 @@ The host exposed here only works internally in docker containers. If you want yo
 dokku nats:link other_service playground
 ```
 
-It is possible to change the protocol for nats_url by setting the environment variable nats_database_scheme on the app. Doing so will after linking will cause the plugin to think the service is not linked, and we advise you to unlink before proceeding.
+It is possible to change the protocol for `NATS_URL` by setting the environment variable `NATS_DATABASE_SCHEME` on the app. Doing so will after linking will cause the plugin to think the service is not linked, and we advise you to unlink before proceeding. 
 
 ```shell
 dokku config:set playground NATS_DATABASE_SCHEME=nats2
 dokku nats:link lolipop playground
 ```
 
-This will cause nats_url to be set as:
+This will cause `NATS_URL` to be set as:
 
 ```
 nats2://lolipop:SOME_PASSWORD@dokku-nats-lolipop:4222/lolipop
@@ -239,13 +239,13 @@ The lifecycle of each service can be managed through the following commands:
 dokku nats:enter <service>
 ```
 
-A bash prompt can be opened against a running service. Filesystem changes will not be saved to disk.
+A bash prompt can be opened against a running service. Filesystem changes will not be saved to disk. 
 
 ```shell
 dokku nats:enter lolipop
 ```
 
-You may also run a command directly against the service. Filesystem changes will not be saved to disk.
+You may also run a command directly against the service. Filesystem changes will not be saved to disk. 
 
 ```shell
 dokku nats:enter lolipop touch /tmp/test
@@ -258,10 +258,10 @@ dokku nats:enter lolipop touch /tmp/test
 dokku nats:expose <service> <ports...>
 ```
 
-Expose the service on the service's normal ports, allowing access to it from the public interface (0. 0. 0. 0):
+Expose the service on the service's normal ports, allowing access to it from the public interface (`0.0.0.0`):
 
 ```shell
-dokku nats:expose lolipop ${PLUGIN_DATASTORE_PORTS[@]}
+dokku nats:expose lolipop 4222
 ```
 
 ### unexpose a previously exposed nats service
@@ -271,7 +271,7 @@ dokku nats:expose lolipop ${PLUGIN_DATASTORE_PORTS[@]}
 dokku nats:unexpose <service>
 ```
 
-Unexpose the service, removing access to it from the public interface (0. 0. 0. 0):
+Unexpose the service, removing access to it from the public interface (`0.0.0.0`):
 
 ```shell
 dokku nats:unexpose lolipop
@@ -298,7 +298,7 @@ You can promote the new service to be the primary one:
 dokku nats:promote other_service playground
 ```
 
-This will replace nats_url with the url from other_service and generate another environment variable to hold the previous value if necessary. You could end up with the following for example:
+This will replace `NATS_URL` with the url from other_service and generate another environment variable to hold the previous value if necessary. You could end up with the following for example:
 
 ```
 NATS_URL=nats://other_service:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
@@ -376,7 +376,7 @@ Service scripting can be executed using the following commands:
 dokku nats:app-links <app>
 ```
 
-List all nats services that are linked to the 'playground' app.
+List all nats services that are linked to the 'playground' app. 
 
 ```shell
 dokku nats:app-links playground
@@ -389,7 +389,7 @@ dokku nats:app-links playground
 dokku nats:exists <service>
 ```
 
-Here we check if the lolipop nats service exists.
+Here we check if the lolipop nats service exists. 
 
 ```shell
 dokku nats:exists lolipop
@@ -402,7 +402,7 @@ dokku nats:exists lolipop
 dokku nats:linked <service> <app>
 ```
 
-Here we check if the lolipop nats service is linked to the 'playground' app.
+Here we check if the lolipop nats service is linked to the 'playground' app. 
 
 ```shell
 dokku nats:linked lolipop playground
@@ -415,7 +415,7 @@ dokku nats:linked lolipop playground
 dokku nats:links <service>
 ```
 
-List all apps linked to the 'lolipop' nats service.
+List all apps linked to the 'lolipop' nats service. 
 
 ```shell
 dokku nats:links lolipop
