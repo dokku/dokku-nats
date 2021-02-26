@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-_DIR="$(dirname $0)"
-export NATS_IMAGE=${NATS_IMAGE:="$(awk -F '[ :]' '{print $2}' $_DIR/Dockerfile)"}
-export NATS_IMAGE_VERSION=${NATS_IMAGE_VERSION:="$(awk -F '[ :]' '{print $3}' $_DIR/Dockerfile)"}
+_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export NATS_IMAGE=${NATS_IMAGE:="$(awk -F '[ :]' '{print $2}' "${_DIR}/Dockerfile")"}
+export NATS_IMAGE_VERSION=${NATS_IMAGE_VERSION:="$(awk -F '[ :]' '{print $3}' "${_DIR}/Dockerfile")"}
 export NATS_ROOT=${NATS_ROOT:="$DOKKU_LIB_ROOT/services/nats"}
 export NATS_HOST_ROOT=${NATS_HOST_ROOT:=$NATS_ROOT}
 
