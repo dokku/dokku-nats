@@ -22,7 +22,7 @@ nats:create <service> [--create-flags...]   # create a nats service
 nats:destroy <service> [-f|--force]         # delete the nats service/data/container if there are no links left
 nats:enter <service>                        # enter or run a command in a running nats service container
 nats:exists <service>                       # check if the nats service exists
-nats:expose <service> <ports...>            # expose a nats service on custom port if provided (random port otherwise)
+nats:expose <service> <ports...>            # expose a nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
 nats:info <service> [--single-info-flag]    # print the service information
 nats:link <service> <app> [--link-flags...] # link the nats service to the app
 nats:linked <service> <app>                 # check if the nats service is linked to an app
@@ -251,7 +251,7 @@ You may also run a command directly against the service. Filesystem changes will
 dokku nats:enter lolipop touch /tmp/test
 ```
 
-### expose a nats service on custom port if provided (random port otherwise)
+### expose a nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
 
 ```shell
 # usage
@@ -262,6 +262,12 @@ Expose the service on the service's normal ports, allowing access to it from the
 
 ```shell
 dokku nats:expose lolipop 4222
+```
+
+Expose the service on the service's normal ports, with the first on a specified ip adddress (127.0.0.1):
+
+```shell
+dokku nats:expose lolipop 127.0.0.1:4222
 ```
 
 ### unexpose a previously exposed nats service
