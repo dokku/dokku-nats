@@ -193,7 +193,7 @@ DOKKU_NATS_LOLIPOP_PORT_4222_TCP_ADDR=172.17.0.1
 The following will be set on the linked application by default:
 
 ```
-NATS_URL=nats://lolipop:SOME_PASSWORD@dokku-nats-lolipop:4222/lolipop
+NATS_URL=nats://lolipop:SOME_PASSWORD@dokku-nats-lolipop:4222
 ```
 
 The host exposed here only works internally in docker containers. If you want your container to be reachable from outside, you should use the `expose` subcommand. Another service can be linked to your app:
@@ -212,7 +212,7 @@ dokku nats:link lolipop playground
 This will cause `NATS_URL` to be set as:
 
 ```
-nats2://lolipop:SOME_PASSWORD@dokku-nats-lolipop:4222/lolipop
+nats2://lolipop:SOME_PASSWORD@dokku-nats-lolipop:4222
 ```
 
 ### unlink the nats service from the app
