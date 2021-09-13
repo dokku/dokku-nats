@@ -74,8 +74,13 @@ service_create_container() {
     MEMORY_LIMIT="--memory=${SERVICE_MEMORY}m"
   fi
 
+  [[ -f "$SERVICE_ROOT/SHM_SIZE" ]] && SERVICE_SHM_SIZE="$(cat "$SERVICE_ROOT/SHM_SIZE")"
+  if [[ -n "$SERVICE_SHM_SIZE" ]]; then
+    SHM_SIZE="--shm-size=${SERVICE_SHM_SIZE}"
+  fi
+
   # shellcheck disable=SC2086
-  ID=$(docker run --name "$SERVICE_NAME" $MEMORY_LIMIT --env-file="$SERVICE_ROOT/ENV" -d --restart always --label dokku=service --label dokku.service=nats "$PLUGIN_IMAGE:$PLUGIN_IMAGE_VERSION" --user "$SERVICE" --pass "$PASSWORD" $CONFIG_OPTIONS)
+  ID=$(docker run --name "$SERVICE_NAME" $MEMORY_LIMIT $SHM_SIZE--env-file="$SERVICE_ROOT/ENV" -d --restart always --label dokku=service --label dokku.service=nats "$PLUGIN_IMAGE:$PLUGIN_IMAGE_VERSION" --user "$SERVICE" --pass "$PASSWORD" $CONFIG_OPTIONS)
   echo "$ID" >"$SERVICE_ROOT/ID"
 
   dokku_log_verbose_quiet "Waiting for container to be ready"
