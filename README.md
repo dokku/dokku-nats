@@ -62,10 +62,10 @@ flags:
 - `-r|--root-password PASSWORD`: override the root-level service password
 - `-s|--shm-size SHM_SIZE`: override shared memory size for nats docker container
 
-Create a nats service named lolipop:
+Create a nats service named lollipop:
 
 ```shell
-dokku nats:create lolipop
+dokku nats:create lollipop
 ```
 
 You can also specify the image and image version to use for the service. It *must* be compatible with the nats image.
@@ -73,14 +73,14 @@ You can also specify the image and image version to use for the service. It *mus
 ```shell
 export NATS_IMAGE="nats"
 export NATS_IMAGE_VERSION="${PLUGIN_IMAGE_VERSION}"
-dokku nats:create lolipop
+dokku nats:create lollipop
 ```
 
 You can also specify custom environment variables to start the nats service in semi-colon separated form.
 
 ```shell
 export NATS_CUSTOM_ENV="USER=alpha;HOST=beta"
-dokku nats:create lolipop
+dokku nats:create lollipop
 ```
 
 ### print the service information
@@ -106,22 +106,22 @@ flags:
 Get connection information as follows:
 
 ```shell
-dokku nats:info lolipop
+dokku nats:info lollipop
 ```
 
 You can also retrieve a specific piece of service info via flags:
 
 ```shell
-dokku nats:info lolipop --config-dir
-dokku nats:info lolipop --data-dir
-dokku nats:info lolipop --dsn
-dokku nats:info lolipop --exposed-ports
-dokku nats:info lolipop --id
-dokku nats:info lolipop --internal-ip
-dokku nats:info lolipop --links
-dokku nats:info lolipop --service-root
-dokku nats:info lolipop --status
-dokku nats:info lolipop --version
+dokku nats:info lollipop --config-dir
+dokku nats:info lollipop --data-dir
+dokku nats:info lollipop --dsn
+dokku nats:info lollipop --exposed-ports
+dokku nats:info lollipop --id
+dokku nats:info lollipop --internal-ip
+dokku nats:info lollipop --links
+dokku nats:info lollipop --service-root
+dokku nats:info lollipop --status
+dokku nats:info lollipop --version
 ```
 
 ### list all nats services
@@ -151,13 +151,13 @@ flags:
 You can tail logs for a particular service:
 
 ```shell
-dokku nats:logs lolipop
+dokku nats:logs lollipop
 ```
 
 By default, logs will not be tailed, but you can do this with the --tail flag:
 
 ```shell
-dokku nats:logs lolipop --tail
+dokku nats:logs lollipop --tail
 ```
 
 ### link the nats service to the app
@@ -177,24 +177,24 @@ A nats service can be linked to a container. This will use native docker links v
 > NOTE: this will restart your app
 
 ```shell
-dokku nats:link lolipop playground
+dokku nats:link lollipop playground
 ```
 
 The following environment variables will be set automatically by docker (not on the app itself, so they won’t be listed when calling dokku config):
 
 ```
-DOKKU_NATS_LOLIPOP_NAME=/lolipop/DATABASE
-DOKKU_NATS_LOLIPOP_PORT=tcp://172.17.0.1:4222
-DOKKU_NATS_LOLIPOP_PORT_4222_TCP=tcp://172.17.0.1:4222
-DOKKU_NATS_LOLIPOP_PORT_4222_TCP_PROTO=tcp
-DOKKU_NATS_LOLIPOP_PORT_4222_TCP_PORT=4222
-DOKKU_NATS_LOLIPOP_PORT_4222_TCP_ADDR=172.17.0.1
+DOKKU_NATS_LOLLIPOP_NAME=/lollipop/DATABASE
+DOKKU_NATS_LOLLIPOP_PORT=tcp://172.17.0.1:4222
+DOKKU_NATS_LOLLIPOP_PORT_4222_TCP=tcp://172.17.0.1:4222
+DOKKU_NATS_LOLLIPOP_PORT_4222_TCP_PROTO=tcp
+DOKKU_NATS_LOLLIPOP_PORT_4222_TCP_PORT=4222
+DOKKU_NATS_LOLLIPOP_PORT_4222_TCP_ADDR=172.17.0.1
 ```
 
 The following will be set on the linked application by default:
 
 ```
-NATS_URL=nats://lolipop:SOME_PASSWORD@dokku-nats-lolipop:4222
+NATS_URL=nats://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222
 ```
 
 The host exposed here only works internally in docker containers. If you want your container to be reachable from outside, you should use the `expose` subcommand. Another service can be linked to your app:
@@ -207,13 +207,13 @@ It is possible to change the protocol for `NATS_URL` by setting the environment 
 
 ```shell
 dokku config:set playground NATS_DATABASE_SCHEME=nats2
-dokku nats:link lolipop playground
+dokku nats:link lollipop playground
 ```
 
 This will cause `NATS_URL` to be set as:
 
 ```
-nats2://lolipop:SOME_PASSWORD@dokku-nats-lolipop:4222
+nats2://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222
 ```
 
 ### unlink the nats service from the app
@@ -228,7 +228,7 @@ You can unlink a nats service:
 > NOTE: this will restart your app and unset related environment variables
 
 ```shell
-dokku nats:unlink lolipop playground
+dokku nats:unlink lollipop playground
 ```
 
 ### Service Lifecycle
@@ -245,13 +245,13 @@ dokku nats:enter <service>
 A bash prompt can be opened against a running service. Filesystem changes will not be saved to disk.
 
 ```shell
-dokku nats:enter lolipop
+dokku nats:enter lollipop
 ```
 
 You may also run a command directly against the service. Filesystem changes will not be saved to disk.
 
 ```shell
-dokku nats:enter lolipop touch /tmp/test
+dokku nats:enter lollipop touch /tmp/test
 ```
 
 ### expose a nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
@@ -264,13 +264,13 @@ dokku nats:expose <service> <ports...>
 Expose the service on the service's normal ports, allowing access to it from the public interface (`0.0.0.0`):
 
 ```shell
-dokku nats:expose lolipop 4222
+dokku nats:expose lollipop 4222
 ```
 
 Expose the service on the service's normal ports, with the first on a specified ip adddress (127.0.0.1):
 
 ```shell
-dokku nats:expose lolipop 127.0.0.1:4222
+dokku nats:expose lollipop 127.0.0.1:4222
 ```
 
 ### unexpose a previously exposed nats service
@@ -283,7 +283,7 @@ dokku nats:unexpose <service>
 Unexpose the service, removing access to it from the public interface (`0.0.0.0`):
 
 ```shell
-dokku nats:unexpose lolipop
+dokku nats:unexpose lollipop
 ```
 
 ### promote service <service> as NATS_URL in <app>
@@ -312,7 +312,7 @@ This will replace `NATS_URL` with the url from other_service and generate anothe
 ```
 NATS_URL=nats://other_service:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
 DOKKU_NATS_BLUE_URL=nats://other_service:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
-DOKKU_NATS_SILVER_URL=nats://lolipop:SOME_PASSWORD@dokku-nats-lolipop:4222/lolipop
+DOKKU_NATS_SILVER_URL=nats://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222/lollipop
 ```
 
 ### start a previously stopped nats service
@@ -325,7 +325,7 @@ dokku nats:start <service>
 Start the service:
 
 ```shell
-dokku nats:start lolipop
+dokku nats:start lollipop
 ```
 
 ### stop a running nats service
@@ -338,7 +338,7 @@ dokku nats:stop <service>
 Stop the service and the running container:
 
 ```shell
-dokku nats:stop lolipop
+dokku nats:stop lollipop
 ```
 
 ### graceful shutdown and restart of the nats service container
@@ -351,7 +351,7 @@ dokku nats:restart <service>
 Restart the service:
 
 ```shell
-dokku nats:restart lolipop
+dokku nats:restart lollipop
 ```
 
 ### upgrade service <service> to the specified versions
@@ -373,7 +373,7 @@ flags:
 You can upgrade an existing service to a new image or image-version:
 
 ```shell
-dokku nats:upgrade lolipop
+dokku nats:upgrade lollipop
 ```
 
 ### Service Automation
@@ -400,10 +400,10 @@ dokku nats:app-links playground
 dokku nats:exists <service>
 ```
 
-Here we check if the lolipop nats service exists.
+Here we check if the lollipop nats service exists.
 
 ```shell
-dokku nats:exists lolipop
+dokku nats:exists lollipop
 ```
 
 ### check if the nats service is linked to an app
@@ -413,10 +413,10 @@ dokku nats:exists lolipop
 dokku nats:linked <service> <app>
 ```
 
-Here we check if the lolipop nats service is linked to the `playground` app.
+Here we check if the lollipop nats service is linked to the `playground` app.
 
 ```shell
-dokku nats:linked lolipop playground
+dokku nats:linked lollipop playground
 ```
 
 ### list all apps linked to the nats service
@@ -426,10 +426,10 @@ dokku nats:linked lolipop playground
 dokku nats:links <service>
 ```
 
-List all apps linked to the `lolipop` nats service.
+List all apps linked to the `lollipop` nats service.
 
 ```shell
-dokku nats:links lolipop
+dokku nats:links lollipop
 ```
 
 ### Disabling `docker pull` calls
