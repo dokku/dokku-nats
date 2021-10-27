@@ -17,25 +17,25 @@ sudo dokku plugin:install https://github.com/dokku/dokku-nats.git nats
 ## Commands
 
 ```
-nats:app-links <app>                        # list all nats service links for a given app
-nats:create <service> [--create-flags...]   # create a nats service
-nats:destroy <service> [-f|--force]         # delete the nats service/data/container if there are no links left
-nats:enter <service>                        # enter or run a command in a running nats service container
-nats:exists <service>                       # check if the nats service exists
-nats:expose <service> <ports...>            # expose a nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
-nats:info <service> [--single-info-flag]    # print the service information
-nats:link <service> <app> [--link-flags...] # link the nats service to the app
-nats:linked <service> <app>                 # check if the nats service is linked to an app
-nats:links <service>                        # list all apps linked to the nats service
-nats:list                                   # list all nats services
-nats:logs <service> [-t|--tail]             # print the most recent log(s) for this service
-nats:promote <service> <app>                # promote service <service> as NATS_URL in <app>
-nats:restart <service>                      # graceful shutdown and restart of the nats service container
-nats:start <service>                        # start a previously stopped nats service
-nats:stop <service>                         # stop a running nats service
-nats:unexpose <service>                     # unexpose a previously exposed nats service
-nats:unlink <service> <app>                 # unlink the nats service from the app
-nats:upgrade <service> [--upgrade-flags...] # upgrade service <service> to the specified versions
+nats:app-links <app>                               # list all nats service links for a given app
+nats:create <service> [--create-flags...]          # create a nats service
+nats:destroy <service> [-f|--force]                # delete the nats service/data/container if there are no links left
+nats:enter <service>                               # enter or run a command in a running nats service container
+nats:exists <service>                              # check if the nats service exists
+nats:expose <service> <ports...>                   # expose a nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
+nats:info <service> [--single-info-flag]           # print the service information
+nats:link <service> <app> [--link-flags...]        # link the nats service to the app
+nats:linked <service> <app>                        # check if the nats service is linked to an app
+nats:links <service>                               # list all apps linked to the nats service
+nats:list                                          # list all nats services
+nats:logs <service> [-t|--tail] <tail-num-optional> # print the most recent log(s) for this service
+nats:promote <service> <app>                       # promote service <service> as NATS_URL in <app>
+nats:restart <service>                             # graceful shutdown and restart of the nats service container
+nats:start <service>                               # start a previously stopped nats service
+nats:stop <service>                                # stop a running nats service
+nats:unexpose <service>                            # unexpose a previously exposed nats service
+nats:unlink <service> <app>                        # unlink the nats service from the app
+nats:upgrade <service> [--upgrade-flags...]        # upgrade service <service> to the specified versions
 ```
 
 ## Usage
@@ -141,12 +141,12 @@ dokku nats:list
 
 ```shell
 # usage
-dokku nats:logs <service> [-t|--tail]
+dokku nats:logs <service> [-t|--tail] <tail-num-optional>
 ```
 
 flags:
 
-- `-t|--tail`: do not stop when end of the logs are reached and wait for additional output
+- `-t|--tail [<tail-num>]`: do not stop when end of the logs are reached and wait for additional output
 
 You can tail logs for a particular service:
 
@@ -158,6 +158,12 @@ By default, logs will not be tailed, but you can do this with the --tail flag:
 
 ```shell
 dokku nats:logs lollipop --tail
+```
+
+The default tail setting is to show all logs, but an initial count can also be specified:
+
+```shell
+dokku nats:logs lollipop --tail 5
 ```
 
 ### link the nats service to the app
