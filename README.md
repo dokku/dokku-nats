@@ -29,6 +29,7 @@ nats:linked <service> <app>                        # check if the nats service i
 nats:links <service>                               # list all apps linked to the nats service
 nats:list                                          # list all nats services
 nats:logs <service> [-t|--tail] <tail-num-optional> # print the most recent log(s) for this service
+nats:pause <service>                               # pause a running nats service
 nats:promote <service> <app>                       # promote service <service> as NATS_URL in <app>
 nats:restart <service>                             # graceful shutdown and restart of the nats service container
 nats:start <service>                               # start a previously stopped nats service
@@ -343,10 +344,23 @@ dokku nats:start lollipop
 dokku nats:stop <service>
 ```
 
-Stop the service and the running container:
+Stop the service and removes the running container:
 
 ```shell
 dokku nats:stop lollipop
+```
+
+### pause a running nats service
+
+```shell
+# usage
+dokku nats:pause <service>
+```
+
+Pause the running container for the service:
+
+```shell
+dokku nats:pause lollipop
 ```
 
 ### graceful shutdown and restart of the nats service container
