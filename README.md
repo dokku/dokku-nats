@@ -32,6 +32,7 @@ nats:logs <service> [-t|--tail] <tail-num-optional> # print the most recent log(
 nats:pause <service>                               # pause a running nats service
 nats:promote <service> <app>                       # promote service <service> as NATS_URL in <app>
 nats:restart <service>                             # graceful shutdown and restart of the nats service container
+nats:set <service> <key> <value>                   # set or clear a property for a service
 nats:start <service>                               # start a previously stopped nats service
 nats:stop <service>                                # stop a running nats service
 nats:unexpose <service>                            # unexpose a previously exposed nats service
@@ -236,6 +237,25 @@ You can unlink a nats service:
 
 ```shell
 dokku nats:unlink lollipop playground
+```
+
+### set or clear a property for a service
+
+```shell
+# usage
+dokku nats:set <service> <key> <value>
+```
+
+Set the network to attach after the service container is started:
+
+```shell
+dokku nats:set lollipop post-create-network custom-network
+```
+
+Unset the post-create-network value:
+
+```shell
+dokku nats:set lollipop post-create-network
 ```
 
 ### Service Lifecycle
