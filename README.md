@@ -32,6 +32,7 @@ nats:logs <service> [-t|--tail] <tail-num-optional> # print the most recent log(
 nats:pause <service>                               # pause a running nats service
 nats:promote <service> <app>                       # promote service <service> as NATS_URL in <app>
 nats:restart <service>                             # graceful shutdown and restart of the nats service container
+nats:set <service> <key> <value>                   # set or clear a property for a service
 nats:start <service>                               # start a previously stopped nats service
 nats:stop <service>                                # stop a running nats service
 nats:unexpose <service>                            # unexpose a previously exposed nats service
@@ -99,7 +100,10 @@ flags:
 - `--exposed-ports`: show service exposed ports
 - `--id`: show the service container id
 - `--internal-ip`: show the service internal ip
+- `--initial-network`: show the initial network being connected to
 - `--links`: show the service app links
+- `--post-create-network`: show the networks to attach to after service container creation
+- `--post-start-network`: show the networks to attach to after service container start
 - `--service-root`: show the service root directory
 - `--status`: show the service running status
 - `--version`: show the service image version
@@ -119,7 +123,10 @@ dokku nats:info lollipop --dsn
 dokku nats:info lollipop --exposed-ports
 dokku nats:info lollipop --id
 dokku nats:info lollipop --internal-ip
+dokku nats:info lollipop --initial-network
 dokku nats:info lollipop --links
+dokku nats:info lollipop --post-create-network
+dokku nats:info lollipop --post-start-network
 dokku nats:info lollipop --service-root
 dokku nats:info lollipop --status
 dokku nats:info lollipop --version
@@ -236,6 +243,31 @@ You can unlink a nats service:
 
 ```shell
 dokku nats:unlink lollipop playground
+```
+
+### set or clear a property for a service
+
+```shell
+# usage
+dokku nats:set <service> <key> <value>
+```
+
+Set the network to attach after the service container is started:
+
+```shell
+dokku nats:set lollipop post-create-network custom-network
+```
+
+Set multiple networks:
+
+```shell
+dokku nats:set lollipop post-create-network custom-network,other-network
+```
+
+Unset the post-create-network value:
+
+```shell
+dokku nats:set lollipop post-create-network
 ```
 
 ### Service Lifecycle
