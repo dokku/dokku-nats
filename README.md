@@ -188,6 +188,7 @@ flags:
 
 - `-a|--alias "BLUE_DATABASE"`: an alternative alias to use for linking to an app via environment variable
 - `-q|--querystring "pool=5"`: ampersand delimited querystring arguments to append to the service link
+- `-n|--no-restart "false"`: whether or not to restart the app on link (default: true)
 
 A nats service can be linked to a container. This will use native docker links via the docker-options plugin. Here we link it to our `playground` app.
 
@@ -211,7 +212,7 @@ DOKKU_NATS_LOLLIPOP_PORT_4222_TCP_ADDR=172.17.0.1
 The following will be set on the linked application by default:
 
 ```
-NATS_URL=nats://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222
+NATS_URL=nats://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222/lollipop
 ```
 
 The host exposed here only works internally in docker containers. If you want your container to be reachable from outside, you should use the `expose` subcommand. Another service can be linked to your app:
@@ -230,7 +231,13 @@ dokku nats:link lollipop playground
 This will cause `NATS_URL` to be set as:
 
 ```
-nats2://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222
+nats2://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222/lollipop
+```
+
+If you specify `NATS_DATABASE_SCHEME` to equal `http`, we`ll also automatically adjust `NATS_URL` to match the http interface:
+
+```
+http://lollipop:SOME_PASSWORD@dokku-nats-lollipop:${PLUGIN_DATASTORE_PORTS[1]}
 ```
 
 ### unlink the nats service from the app
@@ -239,6 +246,10 @@ nats2://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222
 # usage
 dokku nats:unlink <service> <app>
 ```
+
+flags:
+
+- `-n|--no-restart "false"`: whether or not to restart the app on unlink (default: true)
 
 You can unlink a nats service:
 
@@ -426,7 +437,7 @@ flags:
 - `-I|--image-version IMAGE_VERSION`: the image version to start the service with
 - `-N|--initial-network INITIAL_NETWORK`: the initial network to attach the service to
 - `-P|--post-create-network NETWORKS`: a comman-separated list of networks to attach the service container to after service creation
-- `-R|--restart-apps "true"`: whether to force an app restart
+- `-R|--restart-apps "true"`: whether or not to force an app restart (default: false)
 - `-S|--post-start-network NETWORKS`: a comman-separated list of networks to attach the service container to after service start
 - `-s|--shm-size SHM_SIZE`: override shared memory size for nats docker container
 
