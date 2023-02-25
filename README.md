@@ -234,12 +234,6 @@ This will cause `NATS_URL` to be set as:
 nats2://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222/lollipop
 ```
 
-If you specify `NATS_DATABASE_SCHEME` to equal `http`, we`ll also automatically adjust `NATS_URL` to match the http interface:
-
-```
-http://lollipop:SOME_PASSWORD@dokku-nats-lollipop:${PLUGIN_DATASTORE_PORTS[1]}
-```
-
 ### unlink the nats service from the app
 
 ```shell
