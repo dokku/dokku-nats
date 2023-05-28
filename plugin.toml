@@ -1,4 +1,4 @@
 [plugin]
 description = "dokku nats service plugin"
-version = "1.32.2"
+version = "1.34.0"
 [plugin.config]
