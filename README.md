@@ -81,7 +81,7 @@ export NATS_IMAGE_VERSION="${PLUGIN_IMAGE_VERSION}"
 dokku nats:create lollipop
 ```
 
-You can also specify custom environment variables to start the nats service in semi-colon separated form.
+You can also specify custom environment variables to start the nats service in semicolon-separated form.
 
 ```shell
 export NATS_CUSTOM_ENV="USER=alpha;HOST=beta"
