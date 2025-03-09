@@ -11,7 +11,7 @@ Official nats plugin for dokku. Currently defaults to installing [nats 2.10.22](
 
 ```shell
 # on 0.19.x+
-sudo dokku plugin:install https://github.com/dokku/dokku-nats.git nats
+sudo dokku plugin:install https://github.com/dokku/dokku-nats.git --name nats
 ```
 
 ## Commands
