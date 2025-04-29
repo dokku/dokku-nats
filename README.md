@@ -318,7 +318,7 @@ Expose the service on the service's normal ports, allowing access to it from the
 dokku nats:expose lollipop 4222
 ```
 
-Expose the service on the service's normal ports, with the first on a specified ip adddress (127.0.0.1):
+Expose the service on the service's normal ports, with the first on a specified ip address (127.0.0.1):
 
 ```shell
 dokku nats:expose lollipop 127.0.0.1:4222
