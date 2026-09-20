@@ -1,0 +1,46 @@
+---
+services:
+  nats:
+    image: "{{ .Image }}:{{ .ImageVersion }}"
+
+    # arguments to the image's own entrypoint rather than a program of its own.
+    # The credentials are on the command line because that is where the bash
+    # plugin put them and where nats reads them from without a config file.
+    command:
+      - --user
+      - "{{ .ServiceName }}"
+      - --pass
+      - "{{ .Secret.password }}"
+
+    # no volumes: this is the core nats server without jetstream, so it holds
+    # nothing across a restart and has nothing to dump
+
+    ports:
+      - name: native
+        target: 4222
+        primary: true
+
+x-dokku:
+  plugin: nats
+  title: Nats
+  scheme: nats
+  alias: NATS
+
+  # the user is the service name, which is what the bash plugin authenticates
+  # with and what a linked app therefore has to send
+  dsn: "{{ .Scheme }}://{{ .ServiceName }}:{{ .Secret.password }}@{{ .Host }}:{{ .Port.native }}"
+
+  # the image ships no client, so nothing inside the container could answer a
+  # healthcheck
+  wait: native
+
+  secrets:
+    password:
+      file: PASSWORD
+      length: 32
+      env: SERVICE_PASSWORD
+
+  # no commands at all: nats ships no client to connect with and holds nothing
+  # to dump, so connect, export and import are all absent, and clone and the
+  # backup family fall out of that. It is the only datastore with nothing to run
+  # against a running service.
