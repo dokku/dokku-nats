@@ -1,45 +1,43 @@
 # dokku nats [![Build Status](https://img.shields.io/github/actions/workflow/status/dokku/dokku-nats/ci.yml?branch=master&style=flat-square "Build Status")](https://github.com/dokku/dokku-nats/actions/workflows/ci.yml?query=branch%3Amaster) [![IRC Network](https://img.shields.io/badge/irc-libera-blue.svg?style=flat-square "IRC Libera")](https://webchat.libera.chat/?channels=dokku)
 
-Official nats plugin for dokku. Currently defaults to installing [nats 2.14.0](https://hub.docker.com/_/nats/).
+Official nats plugin for dokku. Currently defaults to installing [nats 2.14.6](https://hub.docker.com/_/nats/).
 
 ## Requirements
 
-- dokku 0.19.x+
+- dokku 0.35.x+
 - docker 1.8.x
 
 ## Installation
 
 ```shell
-# on 0.19.x+
+# on 0.35.x+
 sudo dokku plugin:install https://github.com/dokku/dokku-nats.git --name nats
 ```
 
 ## Commands
 
 ```
-nats:app-links <app>                               # list all nats service links for a given app
-nats:backup-set-public-key-encryption <service> <public-key-id> # set GPG Public Key encryption for all future backups of nats service
-nats:backup-unset-public-key-encryption <service>  # unset GPG Public Key encryption for future backups of the nats service
-nats:create <service> [--create-flags...]          # create a nats service
-nats:destroy <service> [-f|--force]                # delete the nats service/data/container if there are no links left
-nats:enter <service>                               # enter or run a command in a running nats service container
-nats:exists <service>                              # check if the nats service exists
-nats:expose <service> <ports...>                   # expose a nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
-nats:info <service> [--single-info-flag]           # print the service information
-nats:link <service> <app> [--link-flags...]        # link the nats service to the app
-nats:linked <service> <app>                        # check if the nats service is linked to an app
-nats:links <service>                               # list all apps linked to the nats service
-nats:list                                          # list all nats services
-nats:logs <service> [-t|--tail] <tail-num-optional> # print the most recent log(s) for this service
-nats:pause <service>                               # pause a running nats service
-nats:promote <service> <app>                       # promote service <service> as NATS_URL in <app>
-nats:restart <service>                             # graceful shutdown and restart of the nats service container
-nats:set <service> <key> <value>                   # set or clear a property for a service
-nats:start <service>                               # start a previously stopped nats service
-nats:stop <service>                                # stop a running nats service
-nats:unexpose <service>                            # unexpose a previously exposed nats service
-nats:unlink <service> <app>                        # unlink the nats service from the app
-nats:upgrade <service> [--upgrade-flags...]        # upgrade service <service> to the specified versions
+nats:app-links [<app>]                          # list all Nats service links for a given app
+nats:create <service> [--create-flags...]       # create a Nats service
+nats:destroy <service> [-f|--force]             # delete the Nats service/data/container if there are no links left
+nats:enter <service>                            # enter or run a command in a running Nats service container
+nats:exists <service>                           # check if the Nats service exists
+nats:expose <service> <ports...>                # expose a Nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
+nats:info <service> [--info-flags...]           # print the service information
+nats:link <service> [<app>] [--link-flags...]   # link the Nats service to the app
+nats:linked <service> [<app>]                   # check if the Nats service is linked to an app
+nats:links <service>                            # list all apps linked to the Nats service
+nats:list                                       # list all Nats services
+nats:logs <service> [-t|--tail [<tail-num>]]    # print the most recent log(s) for this service
+nats:pause <service>                            # pause a running Nats service
+nats:promote <service> [<app>]                  # promote service <service> as NATS_URL in <app>
+nats:restart <service>                          # graceful shutdown and restart of the Nats service container
+nats:set <service> <key> <value>                # set or clear a property for a service
+nats:start <service>                            # start a previously stopped Nats service
+nats:stop <service>                             # stop a running Nats service
+nats:unexpose <service>                         # unexpose a previously exposed Nats service
+nats:unlink <service> [<app>] [-n|--no-restart] # unlink the Nats service from the app
+nats:upgrade <service> [--upgrade-flags...]     # upgrade service <service> to the specified versions
 ```
 
 ## Usage
@@ -48,7 +46,7 @@ Help for any commands can be displayed by specifying the command as an argument 
 
 ### Basic Usage
 
-### create a nats service
+### create a Nats service
 
 ```shell
 # usage
@@ -57,17 +55,17 @@ dokku nats:create <service> [--create-flags...]
 
 flags:
 
-- `-c|--config-options "--args --go=here"`: extra arguments to pass to the container create command (default: `None`)
-- `-C|--custom-env "USER=alpha;HOST=beta"`: semi-colon delimited environment variables to start the service with
-- `-i|--image IMAGE`: the image name to start the service with
-- `-I|--image-version IMAGE_VERSION`: the image version to start the service with
-- `-m|--memory MEMORY`: container memory limit in megabytes (default: unlimited)
-- `-N|--initial-network INITIAL_NETWORK`: the initial network to attach the service to
-- `-p|--password PASSWORD`: override the user-level service password
-- `-P|--post-create-network NETWORKS`: a comma-separated list of networks to attach the service container to after service creation
-- `-r|--root-password PASSWORD`: override the root-level service password
-- `-S|--post-start-network NETWORKS`: a comma-separated list of networks to attach the service container to after service start
-- `-s|--shm-size SHM_SIZE`: override shared memory size for nats docker container
+- `-c|--config-options <string>`: extra arguments to pass to the container create command
+- `-C|--custom-env <string>`: semi-colon delimited environment variables to start the service with
+- `-i|--image <string>`: the image name to start the service with
+- `-I|--image-version <string>`: the image version to start the service with
+- `-N|--initial-network <string>`: the initial network to attach the service to
+- `-m|--memory <int>`: container memory limit in megabytes (default: unlimited)
+- `-p|--password <string>`: override the user-level service password
+- `-P|--post-create-network <strings>`: a comma-separated list of networks to attach the service container to after service creation
+- `-S|--post-start-network <strings>`: a comma-separated list of networks to attach the service container to after service start
+- `-r|--root-password <string>`: override the root-level service password
+- `-s|--shm-size <string>`: override shared memory size for the service docker container
 
 Create a nats service named lollipop:
 
@@ -79,7 +77,7 @@ You can also specify the image and image version to use for the service. It *mus
 
 ```shell
 export NATS_IMAGE="nats"
-export NATS_IMAGE_VERSION="${PLUGIN_IMAGE_VERSION}"
+export NATS_IMAGE_VERSION="2.14.6"
 dokku nats:create lollipop
 ```
 
@@ -90,11 +88,28 @@ export NATS_CUSTOM_ENV="USER=alpha;HOST=beta"
 dokku nats:create lollipop
 ```
 
+### delete the Nats service/data/container if there are no links left
+
+```shell
+# usage
+dokku nats:destroy <service> [-f|--force]
+```
+
+flags:
+
+- `-f|--force`: force the destruction of the service
+
+Destroy the service, it's data, and the running container:
+
+```shell
+dokku nats:destroy lollipop
+```
+
 ### print the service information
 
 ```shell
 # usage
-dokku nats:info <service> [--single-info-flag]
+dokku nats:info <service> [--info-flags...]
 ```
 
 flags:
@@ -104,8 +119,8 @@ flags:
 - `--dsn`: show the service DSN
 - `--exposed-ports`: show service exposed ports
 - `--id`: show the service container id
-- `--internal-ip`: show the service internal ip
 - `--initial-network`: show the initial network being connected to
+- `--internal-ip`: show the service internal ip
 - `--links`: show the service app links
 - `--post-create-network`: show the networks to attach to after service container creation
 - `--post-start-network`: show the networks to attach to after service container start
@@ -137,7 +152,7 @@ dokku nats:info lollipop --status
 dokku nats:info lollipop --version
 ```
 
-### list all nats services
+### list all Nats services
 
 ```shell
 # usage
@@ -154,12 +169,12 @@ dokku nats:list
 
 ```shell
 # usage
-dokku nats:logs <service> [-t|--tail] <tail-num-optional>
+dokku nats:logs <service> [-t|--tail [<tail-num>]]
 ```
 
 flags:
 
-- `-t|--tail [<tail-num>]`: do not stop when end of the logs are reached and wait for additional output
+- `-t|--tail <int>`: tail the logs, optionally showing this many lines
 
 You can tail logs for a particular service:
 
@@ -173,24 +188,24 @@ By default, logs will not be tailed, but you can do this with the --tail flag:
 dokku nats:logs lollipop --tail
 ```
 
-The default tail setting is to show all logs, but an initial count can also be specified:
+By default the last 100 lines are shown, but a different count can be specified:
 
 ```shell
-dokku nats:logs lollipop --tail 5
+dokku nats:logs lollipop --tail=5
 ```
 
-### link the nats service to the app
+### link the Nats service to the app
 
 ```shell
 # usage
-dokku nats:link <service> <app> [--link-flags...]
+dokku nats:link <service> [<app>] [--link-flags...]
 ```
 
 flags:
 
-- `-a|--alias "BLUE_DATABASE"`: an alternative alias to use for linking to an app via environment variable
-- `-q|--querystring "pool=5"`: ampersand delimited querystring arguments to append to the service link
-- `-n|--no-restart "false"`: whether or not to restart the app on link (default: true)
+- `-a|--alias <string>`: an alternative alias to use for the config url exported to the app
+- `-n|--no-restart`: whether to skip restarting the app
+- `-q|--querystring <string>`: ampersand delimited querystring arguments to append to the service url
 
 A nats service can be linked to a container. This will use native docker links via the docker-options plugin. Here we link it to our `playground` app.
 
@@ -214,7 +229,7 @@ DOKKU_NATS_LOLLIPOP_PORT_4222_TCP_ADDR=172.17.0.1
 The following will be set on the linked application by default:
 
 ```
-NATS_URL=nats://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222/lollipop
+NATS_URL=nats://:SOME_PASSWORD@dokku-nats-lollipop:4222
 ```
 
 The host exposed here only works internally in docker containers. If you want your container to be reachable from outside, you should use the `expose` subcommand. Another service can be linked to your app:
@@ -233,19 +248,19 @@ dokku nats:link lollipop playground
 This will cause `NATS_URL` to be set as:
 
 ```
-nats2://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222/lollipop
+nats2://:SOME_PASSWORD@dokku-nats-lollipop:4222
 ```
 
-### unlink the nats service from the app
+### unlink the Nats service from the app
 
 ```shell
 # usage
-dokku nats:unlink <service> <app>
+dokku nats:unlink <service> [<app>] [-n|--no-restart]
 ```
 
 flags:
 
-- `-n|--no-restart "false"`: whether or not to restart the app on unlink (default: true)
+- `-n|--no-restart`: whether to skip restarting the app
 
 You can unlink a nats service:
 
@@ -280,11 +295,17 @@ Unset the post-create-network value:
 dokku nats:set lollipop post-create-network
 ```
 
+Set the keyserver a public key for backup encryption is fetched from:
+
+```shell
+dokku nats:set lollipop backup-keyserver hkp://keys.example.com
+```
+
 ### Service Lifecycle
 
 The lifecycle of each service can be managed through the following commands:
 
-### enter or run a command in a running nats service container
+### enter or run a command in a running Nats service container
 
 ```shell
 # usage
@@ -305,7 +326,7 @@ You may also run a command directly against the service. Filesystem changes will
 dokku nats:enter lollipop touch /tmp/test
 ```
 
-### expose a nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
+### expose a Nats service on custom host:port if provided (random port on the 0.0.0.0 interface if otherwise unspecified)
 
 ```shell
 # usage
@@ -324,7 +345,7 @@ Expose the service on the service's normal ports, with the first on a specified 
 dokku nats:expose lollipop 127.0.0.1:4222
 ```
 
-### unexpose a previously exposed nats service
+### unexpose a previously exposed Nats service
 
 ```shell
 # usage
@@ -341,13 +362,13 @@ dokku nats:unexpose lollipop
 
 ```shell
 # usage
-dokku nats:promote <service> <app>
+dokku nats:promote <service> [<app>]
 ```
 
 If you have a nats service linked to an app and try to link another nats service another link environment variable will be generated automatically:
 
 ```
-DOKKU_NATS_BLUE_URL=nats://other_service:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
+DOKKU_NATS_BLUE_URL=nats://:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
 ```
 
 You can promote the new service to be the primary one:
@@ -361,12 +382,12 @@ dokku nats:promote other_service playground
 This will replace `NATS_URL` with the url from other_service and generate another environment variable to hold the previous value if necessary. You could end up with the following for example:
 
 ```
-NATS_URL=nats://other_service:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
-DOKKU_NATS_BLUE_URL=nats://other_service:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
-DOKKU_NATS_SILVER_URL=nats://lollipop:SOME_PASSWORD@dokku-nats-lollipop:4222/lollipop
+NATS_URL=nats://:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
+DOKKU_NATS_BLUE_URL=nats://:ANOTHER_PASSWORD@dokku-nats-other-service:4222/other_service
+DOKKU_NATS_SILVER_URL=nats://:SOME_PASSWORD@dokku-nats-lollipop:4222/lollipop
 ```
 
-### start a previously stopped nats service
+### start a previously stopped Nats service
 
 ```shell
 # usage
@@ -379,7 +400,7 @@ Start the service:
 dokku nats:start lollipop
 ```
 
-### stop a running nats service
+### stop a running Nats service
 
 ```shell
 # usage
@@ -392,7 +413,7 @@ Stop the service and removes the running container:
 dokku nats:stop lollipop
 ```
 
-### pause a running nats service
+### pause a running Nats service
 
 ```shell
 # usage
@@ -405,7 +426,7 @@ Pause the running container for the service:
 dokku nats:pause lollipop
 ```
 
-### graceful shutdown and restart of the nats service container
+### graceful shutdown and restart of the Nats service container
 
 ```shell
 # usage
@@ -427,15 +448,15 @@ dokku nats:upgrade <service> [--upgrade-flags...]
 
 flags:
 
-- `-c|--config-options "--args --go=here"`: extra arguments to pass to the container create command (default: `None`)
-- `-C|--custom-env "USER=alpha;HOST=beta"`: semi-colon delimited environment variables to start the service with
-- `-i|--image IMAGE`: the image name to start the service with
-- `-I|--image-version IMAGE_VERSION`: the image version to start the service with
-- `-N|--initial-network INITIAL_NETWORK`: the initial network to attach the service to
-- `-P|--post-create-network NETWORKS`: a comma-separated list of networks to attach the service container to after service creation
-- `-R|--restart-apps "true"`: whether or not to force an app restart (default: false)
-- `-S|--post-start-network NETWORKS`: a comma-separated list of networks to attach the service container to after service start
-- `-s|--shm-size SHM_SIZE`: override shared memory size for nats docker container
+- `-c|--config-options <string>`: extra arguments to pass to the container create command
+- `-C|--custom-env <string>`: semi-colon delimited environment variables to start the service with
+- `-i|--image <string>`: the image to upgrade the service to
+- `-I|--image-version <string>`: the image version to upgrade the service to
+- `-N|--initial-network <string>`: the initial network to attach the service to
+- `-P|--post-create-network <strings>`: a comma-separated list of networks to attach the service container to after service creation
+- `-S|--post-start-network <strings>`: a comma-separated list of networks to attach the service container to after service start
+- `-R|--restart-apps`: whether to stop and start the linked apps around the upgrade
+- `-s|--shm-size <string>`: override shared memory size for the service docker container
 
 You can upgrade an existing service to a new image or image-version:
 
@@ -447,11 +468,11 @@ dokku nats:upgrade lollipop
 
 Service scripting can be executed using the following commands:
 
-### list all nats service links for a given app
+### list all Nats service links for a given app
 
 ```shell
 # usage
-dokku nats:app-links <app>
+dokku nats:app-links [<app>]
 ```
 
 List all nats services that are linked to the `playground` app.
@@ -460,7 +481,7 @@ List all nats services that are linked to the `playground` app.
 dokku nats:app-links playground
 ```
 
-### check if the nats service exists
+### check if the Nats service exists
 
 ```shell
 # usage
@@ -473,11 +494,11 @@ Here we check if the lollipop nats service exists.
 dokku nats:exists lollipop
 ```
 
-### check if the nats service is linked to an app
+### check if the Nats service is linked to an app
 
 ```shell
 # usage
-dokku nats:linked <service> <app>
+dokku nats:linked <service> [<app>]
 ```
 
 Here we check if the lollipop nats service is linked to the `playground` app.
@@ -486,7 +507,7 @@ Here we check if the lollipop nats service is linked to the `playground` app.
 dokku nats:linked lollipop playground
 ```
 
-### list all apps linked to the nats service
+### list all apps linked to the Nats service
 
 ```shell
 # usage
@@ -497,45 +518,6 @@ List all apps linked to the `lollipop` nats service.
 
 ```shell
 dokku nats:links lollipop
-```
-### Backups
-
-Datastore backups are supported via AWS S3 and S3 compatible services like [minio](https://github.com/minio/minio).
-
-You may skip the `backup-auth` step if your dokku install is running within EC2 and has access to the bucket via an IAM profile. In that case, use the `--use-iam` option with the `backup` command.
-
-If both passphrase and public key forms of encryption are set, the public key encryption will take precedence.
-
-The underlying core backup script is present [here](https://github.com/dokku/docker-s3backup/blob/main/backup.sh).
-
-Backups can be performed using the backup commands:
-
-### set GPG Public Key encryption for all future backups of nats service
-
-```shell
-# usage
-dokku nats:backup-set-public-key-encryption <service> <public-key-id>
-```
-
-Set the `GPG` Public Key for encrypting backups:
-
-```shell
-dokku nats:backup-set-public-key-encryption lollipop
-```
-
-This method currently requires the <public-key-id> to be present on the keyserver `keyserver.ubuntu.com`:
-
-### unset GPG Public Key encryption for future backups of the nats service
-
-```shell
-# usage
-dokku nats:backup-unset-public-key-encryption <service>
-```
-
-Unset the `GPG` Public Key encryption for backups:
-
-```shell
-dokku nats:backup-unset-public-key-encryption lollipop
 ```
 
 ### Disabling `docker image pull` calls
