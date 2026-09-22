@@ -1,6 +1,6 @@
 # dokku nats [![Build Status](https://img.shields.io/github/actions/workflow/status/dokku/dokku-nats/ci.yml?branch=master&style=flat-square "Build Status")](https://github.com/dokku/dokku-nats/actions/workflows/ci.yml?query=branch%3Amaster) [![IRC Network](https://img.shields.io/badge/irc-libera-blue.svg?style=flat-square "IRC Libera")](https://webchat.libera.chat/?channels=dokku)
 
-Official nats plugin for dokku. Currently defaults to installing [nats 2.14.6](https://hub.docker.com/_/nats/).
+Official nats plugin for dokku. Currently defaults to installing [nats 2.15.0](https://hub.docker.com/_/nats/).
 
 ## Requirements
 
@@ -77,7 +77,7 @@ You can also specify the image and image version to use for the service. It *mus
 
 ```shell
 export NATS_IMAGE="nats"
-export NATS_IMAGE_VERSION="2.14.6"
+export NATS_IMAGE_VERSION="2.15.0"
 dokku nats:create lollipop
 ```
 
