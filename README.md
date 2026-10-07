@@ -171,10 +171,13 @@ flags:
 - `--backup-encryption-fingerprint`: show a sha256 fingerprint of the stored backup passphrase
 - `--backup-endpoint-url`: show the s3-compatible endpoint backups are shipped to
 - `--backup-keyserver`: show the keyserver backup public keys are fetched from
+- `--backup-mailto`: show who cron mails the output of scheduled backups to in place of the global MAILTO
+- `--backup-object-name`: show the name backups are uploaded under in place of the default
 - `--backup-public-key-id`: show the gpg public key id backups are encrypted with
 - `--backup-schedule`: show the cron schedule backups run on
 - `--backup-signature-version`: show the signature version backups authenticate with
 - `--backup-storage-class`: show the s3 storage class backups are uploaded with
+- `--backup-timestamp`: show whether backups are uploaded under a key ending in the time they started
 - `--backup-use-iam`: show whether scheduled backups authenticate with an instance role
 - `--config-dir`: show the service configuration directory
 - `--config-options`: show the config options the service container is run with
@@ -465,6 +468,36 @@ Go back to uploading backups with the bucket's default storage class:
 
 ```shell
 dokku nats:set lollipop backup-storage-class
+```
+
+Upload backups under a name of your own rather than nats-lollipop:
+
+```shell
+dokku nats:set lollipop backup-object-name db/latest
+```
+
+Upload every backup to the same key, without a timestamp, so bucket versioning and lifecycle rules can keep and rotate them:
+
+```shell
+dokku nats:set lollipop backup-timestamp false
+```
+
+Go back to timestamped backups:
+
+```shell
+dokku nats:set lollipop backup-timestamp
+```
+
+Mail the output of scheduled backups to a comma-separated list of email addresses or local users rather than to the global cron `MAILTO`. Requires a dokku version that reads json entries from the cron-entries plugin trigger, and a mail transfer agent on the host:
+
+```shell
+dokku nats:set lollipop backup-mailto ops@example.com,dba@example.com
+```
+
+Go back to mailing scheduled backup output to the global cron `MAILTO`:
+
+```shell
+dokku nats:set lollipop backup-mailto
 ```
 
 Cap the container log at a size of your own rather than the one it inherits:
@@ -864,7 +897,7 @@ flags:
 - `-P|--post-create-network <strings>`: a comma-separated list of networks to attach the service container to after service creation
 - `-S|--post-start-network <strings>`: a comma-separated list of networks to attach the service container to after service start
 - `--restart <string>`: the docker restart policy to run the service container with (default: always)
-- `-R|--restart-apps`: whether to stop and start the linked apps around the upgrade
+- `-R|--restart-apps`: whether to stop and start the linked apps around the upgrade, required for one that migrates the data
 - `-s|--shm-size <string>`: override shared memory size for the service docker container
 - `--volume <stringArray>`: a host path or docker volume to mount into the service container, as <source>:<container-dir>[:<options>], repeatable
 - `--volume-target <stringArray>`: mount one of the definition's volumes at another container path, as <volume>=<container-dir>, repeatable
