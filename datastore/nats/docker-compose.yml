@@ -40,6 +40,10 @@ x-dokku:
       length: 32
       env: SERVICE_PASSWORD
 
+      # passed to the server as it starts, so a new password is a container
+      # made again
+      rebuild: true
+
   # no commands at all: nats ships no client to connect with and holds nothing
   # to dump, so connect, export and import are all absent, and clone and the
   # backup family fall out of that. It is the only datastore with nothing to run
