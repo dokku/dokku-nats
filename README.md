@@ -1,6 +1,6 @@
 # dokku nats [![Build Status](https://img.shields.io/github/actions/workflow/status/dokku/dokku-nats/ci.yml?branch=master&style=flat-square "Build Status")](https://github.com/dokku/dokku-nats/actions/workflows/ci.yml?query=branch%3Amaster) [![IRC Network](https://img.shields.io/badge/irc-libera-blue.svg?style=flat-square "IRC Libera")](https://webchat.libera.chat/?channels=dokku)
 
-Official nats plugin for dokku. Currently defaults to installing [nats 2.15.0](https://hub.docker.com/_/nats/).
+Official nats plugin for dokku. Currently defaults to installing [nats 2.15.1](https://hub.docker.com/_/nats/).
 
 ## Requirements
 
@@ -34,7 +34,7 @@ nats:pause <service>                               # pause a running Nats servic
 nats:promote <service> [<app>]                     # promote service <service> as NATS_URL in <app>
 nats:reexpose <service>                            # reexpose a Nats service, applying its expose settings
 nats:restart <service>                             # graceful shutdown and restart of the Nats service container
-nats:set <service> <key> <value>                   # set or clear a property for a service
+nats:set <service> <key> [<value>] [--id <id>]     # set or clear a property for a service
 nats:start <service>                               # start a previously stopped Nats service
 nats:stop <service>                                # stop a running Nats service
 nats:unexpose <service>                            # unexpose a previously exposed Nats service
@@ -87,7 +87,7 @@ You can also specify the image and image version to use for the service. It *mus
 
 ```shell
 export NATS_IMAGE="nats"
-export NATS_IMAGE_VERSION="2.15.0"
+export NATS_IMAGE_VERSION="2.15.1"
 dokku nats:create lollipop
 ```
 
@@ -176,6 +176,7 @@ flags:
 - `--backup-object-name`: show the name backups are uploaded under in place of the default
 - `--backup-public-key-id`: show the gpg public key id backups are encrypted with
 - `--backup-schedule`: show the cron schedule backups run on
+- `--backup-schedules`: show every scheduled backup, as id, schedule, bucket and use-iam
 - `--backup-secret-access-key-fingerprint`: show a sha256 fingerprint of the stored backup secret access key
 - `--backup-signature-version`: show the signature version backups authenticate with
 - `--backup-storage-class`: show the s3 storage class backups are uploaded with
@@ -451,12 +452,13 @@ An app is still linked after its `NATS_URL` is changed to point elsewhere, and i
 
 ```shell
 # usage
-dokku nats:set <service> <key> <value>
+dokku nats:set <service> <key> [<value>] [--id <id>]
 ```
 
 flags:
 
 - `--allow-restart`: restart or reexpose the service when the property only takes effect that way and its value changed
+- `--id <string>`: record the property on this backup schedule instead of on the service
 - `--no-restart`: do not restart the linked apps when a password change updates the url they hold
 
 Set the network to attach after the service container is started:
